@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password', 'first_name', 'last_name', 'street', 'house_number', 'house_number_suffix', 'city', 'zipcode',
     ];
 
     /**
@@ -43,7 +43,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Like', 'liker_id');
     }
 
-    public function likes()
+    public function liked()
     {
         return $this->hasMany('App\Like', 'liked_user_id');
     }

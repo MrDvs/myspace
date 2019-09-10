@@ -2,7 +2,14 @@
 
 @section('content')
 
-<form style="margin-top: 2vh">
+@foreach ($errors->all() as $message)
+    <div class="alert alert-danger" role="alert">
+        {{$message}}
+    </div>
+@endforeach
+
+<form style="margin-top: 2vh" method="POST" action="{{ route('register') }}">
+	@csrf
 	<h3>Register</h3>
 	<hr>
 	<div class="row">
@@ -12,20 +19,20 @@
 		<div class="col-md-9">
 			<div class="form-group">
 				<label for="usernameInput">User Name</label>
-				<input type="text" class="form-control" id="usernameInput">
+				<input type="text" class="form-control @error('username') is-invalid @enderror" id="usernameInput" name="username" value="{{old('username')}}">
 			</div>
 			<div class="form-group">
 				<label for="emailInput">Email Address</label>
-				<input type="email" class="form-control" id="emailInput">
+				<input type="email" class="form-control @error('email') is-invalid @enderror" id="emailInput" name="email" value="{{old('email')}}">
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="passwordInput">Password</label>
-					<input type="password" class="form-control" id="passwordInput">
+					<input type="password" class="form-control @error('password') is-invalid @enderror" id="passwordInput" name="password">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="repeatpasswordInput">Repeat password</label>
-					<input type="password" class="form-control" id="repeatpasswordInput">
+					<input type="password" class="form-control @error('password') is-invalid @enderror" id="repeatpasswordInput" name="password_confirmation">
 				</div>
 			</div>
 		</div>
@@ -38,34 +45,34 @@
 		<div class="col-md-9">
 			<div class="form-group">
 				<label for="firstnameInput">First Name</label>
-				<input type="text" class="form-control" id="firstnameInput">
+				<input type="text" class="form-control @error('firstname') is-invalid @enderror" id="firstnameInput" name="firstname" value="{{old('firstname')}}">
 			</div>
 			<div class="form-group">
 				<label for="lastnameInput">Last Name</label>
-				<input type="text" class="form-control" id="lastnameInput">
+				<input type="text" class="form-control @error('lastname') is-invalid @enderror" id="lastnameInput" name="lastname" value="{{old('lastname')}}">
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="streetInput">Street name</label>
-					<input type="text" class="form-control" id="streetInput">
+					<input type="text" class="form-control @error('streetname') is-invalid @enderror" id="streetInput" name="streetname" value="{{old('streetname')}}">
 				</div>
 				<div class="form-group col-md-3">
 					<label for="housenumberInput">House number</label>
-					<input type="number" class="form-control" id="housenumberInput">
+					<input type="number" class="form-control @error('housenumber') is-invalid @enderror" id="housenumberInput" name="housenumber" value="{{old('housenumber')}}">
 				</div>
 				<div class="form-group col-md-3">
 					<label for="housenumbersuffixInput">House number suffix</label>
-					<input type="text" class="form-control" id="housenumbersuffixInput">
+					<input type="text" class="form-control @error('housenumbersuffix') is-invalid @enderror" id="housenumbersuffixInput" name="housenumbersuffix" value="{{old('housenumbersuffix')}}">
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="streetInput">City</label>
-					<input type="text" class="form-control" id="streetInput">
+					<input type="text" class="form-control @error('city') is-invalid @enderror" id="streetInput" name="city" value="{{old('city')}}">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="zipcodeInput">Zipcode</label>
-					<input type="text" class="form-control" id="zipcodeInput">
+					<input type="text" class="form-control @error('zipcode') is-invalid @enderror" id="zipcodeInput" name="zipcode" value="{{old('zipcode')}}">
 				</div>
 			</div>
 		</div>
