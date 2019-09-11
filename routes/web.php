@@ -11,11 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/register2', 'HomeController@register2')->name('register2');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/profile', 'ProfileController@index')->name('profile');
+Route::get('/profile/{id}', 'ProfileController@show')->name('show.profile');
+
