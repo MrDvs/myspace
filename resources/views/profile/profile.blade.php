@@ -12,4 +12,20 @@
 	<li>{{$user->city}}</li>
 	<li>{{$user->zipcode}}</li>
 </ul>
+
+{{-- @if($user->id != Auth::user()->id)
+<button onclick="like({{$user->id}})">Like {{$user->username}}</button>
+@endif --}}
+
+<div id="app">
+	<like-component>
+
+	</like-component>
+</div>
+{{--
+<script>
+	function like($id) {
+		console.log($id)
+	}
+</script> --}}
 @endsection

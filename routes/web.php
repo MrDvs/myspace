@@ -17,3 +17,6 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::get('/profile/{id}', 'ProfileController@show')->name('show.profile');
 
+// Axios routes
+Route::post('/isLiked/{id}', 'LikeController@isLiked');
+Route::post('/likeUser/{id}', 'LikeController@like');

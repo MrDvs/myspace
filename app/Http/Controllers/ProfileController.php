@@ -21,6 +21,6 @@ class ProfileController extends Controller
     public function show($id)
     {
     	$user = User::find($id);
-    	dd($user);
+        return view('profile.profile', ['user' => $user]);
     }
 }
