@@ -18,7 +18,7 @@
 @endif --}}
 
 <div id="app">
-	<like-component>
+	<like-component profile-id="{{$user->id}}">
 
 	</like-component>
 </div>

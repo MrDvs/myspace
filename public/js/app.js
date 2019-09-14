@@ -1878,12 +1878,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['profileId'],
   beforeMount: function beforeMount() {
     var _this = this;
 
-    axios.post('isLiked/2').then(function (response) {
+    axios.post('/myspace/public/isLiked/' + this.profileId).then(function (response) {
       _this.info = response.data;
     });
   },
@@ -1891,12 +1891,11 @@ __webpack_require__.r(__webpack_exports__);
     // a computed getter
     likeState: function likeState() {
       // `this` points to the vm instance
-      return this.info == 1 ? 'liked' : 'Unlike';
+      return this.info == 0 ? 'Like' : 'Unlike';
     }
   },
   data: function data() {
     return {
-      count: 0,
       info: {}
     };
   },
@@ -1904,9 +1903,15 @@ __webpack_require__.r(__webpack_exports__);
     likeUser: function likeUser() {
       var _this2 = this;
 
-      axios.post('likeUser/2').then(function (response) {
-        return _this2.info = response;
-      });
+      if (this.info == 0) {
+        axios.post('/myspace/public/likeUser/' + this.profileId).then(function (response) {
+          _this2.info = 1;
+        });
+      } else {
+        axios.post('/myspace/public/unlikeUser/' + this.profileId).then(function (response) {
+          _this2.info = 0;
+        });
+      }
     }
   }
 });
@@ -37257,8 +37262,7 @@ var render = function() {
   return _c("div", { attrs: { id: "app" } }, [
     _c("button", { on: { click: _vm.likeUser } }, [
       _vm._v("\n\t\t" + _vm._s(_vm.likeState) + "\n\t")
-    ]),
-    _vm._v("\n\t" + _vm._s(_vm.info) + "\n")
+    ])
   ])
 }
 var staticRenderFns = []
@@ -49657,8 +49661,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\myspace\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\myspace\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\XAMPP\htdocs\myspace\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\XAMPP\htdocs\myspace\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

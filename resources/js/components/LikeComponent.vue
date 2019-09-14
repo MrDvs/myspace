@@ -1,40 +1,51 @@
 <template>
 	<div id="app">
 		<button @click="likeUser">
-			{{likeState}}
+			{{ likeState }}
 		</button>
-		{{info}}
 	</div>
 </template>
 <script>
     export default {
+    	props: ['profileId'],
 
     	beforeMount: function() {
 		    axios
-		        .post('isLiked/2')
+		        .post('/myspace/public/isLiked/'+this.profileId)
 		        .then(response =>  {
 		        	this.info = response.data
 		        })
-		  },
-		  computed: {
-		    // a computed getter
-		    likeState: function () {
-		      // `this` points to the vm instance
-		      return this.info == 1 ? 'liked' : 'Unlike'
-		    }
-		  },
+		},
+
+		computed: {
+			// a computed getter
+			likeState: function () {
+				// `this` points to the vm instance
+				return this.info == 0 ? 'Like' : 'Unlike'
+			}
+		},
+
 		data() {
 		    return {
-				count: 0,
 				info: {},
 			};
 		},
 
 		methods: {
 			likeUser() {
-				axios
-		        	.post('likeUser/2')
-		        	.then(response => (this.info = response))
+				if (this.info == 0) {
+					axios
+			        	.post('/myspace/public/likeUser/'+this.profileId)
+			        	.then(response => {
+			        		this.info = 1
+			        	})
+			        } else {
+			        	axios
+				        	.post('/myspace/public/unlikeUser/'+this.profileId)
+				        	.then(response => {
+				        		this.info = 0
+				        	})
+			        }
 			}
 		}
     }

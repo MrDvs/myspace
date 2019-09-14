@@ -16,11 +16,12 @@ class LikeController extends Controller
     	])->get();
 
     	if (count($check)) {
-    		return 0;
-    	} else {
     		return 1;
+    	} else {
+    		return 0;
     	}
 	}
+
     public function like($id)
     {
     	$likerId = Auth::user()->id;
@@ -29,5 +30,16 @@ class LikeController extends Controller
     	$like->liker_id = $likerId;
     	$like->liked_user_id = $id;
     	$like->save();
+    }
+
+    public function unlike($id)
+    {
+        $likerId = Auth::user()->id;
+
+        $like = Like::where([
+            ['liker_id', $likerId],
+            ['liked_user_id', $id]
+        ])->get();
+        Like::destroy($like[0]['id']);
     }
 }

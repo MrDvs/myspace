@@ -20,3 +20,4 @@ Route::get('/profile/{id}', 'ProfileController@show')->name('show.profile');
 // Axios routes
 Route::post('/isLiked/{id}', 'LikeController@isLiked');
 Route::post('/likeUser/{id}', 'LikeController@like');
+Route::post('/unlikeUser/{id}', 'LikeController@unlike');
