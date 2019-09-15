@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Storage;
 use App\User;
+use Image;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -48,10 +50,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $request = request();
+        $originalImage = $request->file('picture');
+        $cropped = Image::make($originalImage)
+            ->fit(664, 373)
+            ->encode('jpg', 80);
+        $cropped->save('../storage/app/public/test.jpg');
+
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'picture' => ['required', 'image'],
             'firstname' => ['required', 'string'],
             'lastname' => ['required', 'string'],
             'streetname' => ['required', 'string'],
@@ -70,6 +80,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
@@ -81,6 +92,7 @@ class RegisterController extends Controller
             'house_number_suffix' => $data['housenumbersuffix'],
             'city' => $data['city'],
             'zipcode' => $data['zipcode'],
+            // 'profile_pic_path' =>
         ]);
     }
 }

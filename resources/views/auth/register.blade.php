@@ -8,7 +8,7 @@
     </div>
 @endforeach
 
-<form style="margin-top: 2vh" method="POST" action="{{ route('register') }}">
+<form enctype="multipart/form-data" style="margin-top: 2vh" method="POST" action="{{ route('register') }}">
 	@csrf
 	<h3>Register</h3>
 	<hr>
@@ -34,6 +34,10 @@
 					<label for="repeatpasswordInput">Repeat password</label>
 					<input type="password" class="form-control @error('password') is-invalid @enderror" id="repeatpasswordInput" name="password_confirmation">
 				</div>
+			</div>
+			<div class="form-group">
+				<label for="pictureInput">Profile picture</label>
+				<input type="file" class="form-control-file @error('picture') is-invalid @enderror" id="pictureInput" name="picture">
 			</div>
 		</div>
 	</div>

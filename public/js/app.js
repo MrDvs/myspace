@@ -1888,9 +1888,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   computed: {
-    // a computed getter
     likeState: function likeState() {
-      // `this` points to the vm instance
       return this.info == 0 ? 'Like' : 'Unlike';
     }
   },

@@ -18,9 +18,7 @@
 		},
 
 		computed: {
-			// a computed getter
 			likeState: function () {
-				// `this` points to the vm instance
 				return this.info == 0 ? 'Like' : 'Unlike'
 			}
 		},
@@ -39,13 +37,13 @@
 			        	.then(response => {
 			        		this.info = 1
 			        	})
-			        } else {
-			        	axios
-				        	.post('/myspace/public/unlikeUser/'+this.profileId)
-				        	.then(response => {
-				        		this.info = 0
-				        	})
-			        }
+		        } else {
+		        	axios
+			        	.post('/myspace/public/unlikeUser/'+this.profileId)
+			        	.then(response => {
+			        		this.info = 0
+			        	})
+		        }
 			}
 		}
     }
