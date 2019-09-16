@@ -12,6 +12,7 @@
 */
 
 Auth::routes();
+Route::post('/uploadImage', 'Auth\RegisterController@uploadImg')->name('uploadImage');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/profile', 'ProfileController@index')->name('profile');

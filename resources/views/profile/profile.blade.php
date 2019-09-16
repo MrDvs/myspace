@@ -1,6 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
+<img src="{{asset('storage/'.$user->profile_pic_path)}}" alt="">
 <ul>
 	<li>{{$user->username}}</li>
 	<li>{{$user->email}}</li>
@@ -17,11 +18,16 @@
 <button onclick="like({{$user->id}})">Like {{$user->username}}</button>
 @endif --}}
 
+@if(Auth::id() == $user->id)
+<button class="btn btn-primary">Edit profile</button>
+@else
 <div id="app">
 	<like-component profile-id="{{$user->id}}">
 
 	</like-component>
 </div>
+@endif
+
 {{--
 <script>
 	function like($id) {

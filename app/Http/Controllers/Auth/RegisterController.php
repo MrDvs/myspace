@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Image;
 use Storage;
 use App\User;
-use Image;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,13 +51,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $request = request();
-        $originalImage = $request->file('picture');
-        $cropped = Image::make($originalImage)
-            ->fit(664, 373)
-            ->encode('jpg', 80);
-        $cropped->save('../storage/app/public/test.jpg');
-
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -81,6 +75,14 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
+        $request = request();
+        $originalImage = $request->file('picture');
+        $cropped = Image::make($originalImage)
+            ->fit(200, 200)
+            ->encode('jpg', 80);
+        $img_id = uniqid().'.jpg';
+        $cropped->save('../storage/app/public/'.$img_id);
+
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
@@ -92,7 +94,18 @@ class RegisterController extends Controller
             'house_number_suffix' => $data['housenumbersuffix'],
             'city' => $data['city'],
             'zipcode' => $data['zipcode'],
-            // 'profile_pic_path' =>
+            'profile_pic_path' => $img_id,
         ]);
+    }
+
+    public function uploadImg(Request $request)
+    {
+        $request = request();
+        $originalImage = $request->file('picture');
+        $cropped = Image::make($originalImage)
+            ->fit(200, 200)
+            ->encode('jpg', 80);
+        $img_id = uniqid().'.jpg';
+        $cropped->save('../storage/app/public/'.$img_id.'.jpg');
     }
 }
