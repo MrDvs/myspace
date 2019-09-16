@@ -74,7 +74,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         $request = request();
         $originalImage = $request->file('picture');
         $cropped = Image::make($originalImage)
@@ -82,7 +81,7 @@ class RegisterController extends Controller
             ->encode('jpg', 80);
         $img_id = uniqid().'.jpg';
         $cropped->save('../storage/app/public/'.$img_id);
-
+        
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
@@ -96,16 +95,5 @@ class RegisterController extends Controller
             'zipcode' => $data['zipcode'],
             'profile_pic_path' => $img_id,
         ]);
-    }
-
-    public function uploadImg(Request $request)
-    {
-        $request = request();
-        $originalImage = $request->file('picture');
-        $cropped = Image::make($originalImage)
-            ->fit(200, 200)
-            ->encode('jpg', 80);
-        $img_id = uniqid().'.jpg';
-        $cropped->save('../storage/app/public/'.$img_id.'.jpg');
     }
 }

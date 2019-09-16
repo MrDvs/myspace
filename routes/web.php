@@ -12,11 +12,15 @@
 */
 
 Auth::routes();
-Route::post('/uploadImage', 'Auth\RegisterController@uploadImg')->name('uploadImage');
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/profile', 'ProfileController@index')->name('profile');
-Route::get('/profile/{id}', 'ProfileController@show')->name('show.profile');
+
+// Route::get('/profile', 'ProfileController@index')->name('profile');
+// Route::get('/profile/{id}', 'ProfileController@show')->name('show.profile');
+// Route::get('/profile/{id}/edit', 'ProfileController@edit')->name('edit.profile');
+// Route::patch('/profile/update', 'ProfileController@update')->name('update.profile');
+
+Route::resource('profile', 'ProfileController');
 
 // Axios routes
 Route::post('/isLiked/{id}', 'LikeController@isLiked');

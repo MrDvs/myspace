@@ -12,26 +12,16 @@
 	<li>{{$user->house_number_suffix}}</li>
 	<li>{{$user->city}}</li>
 	<li>{{$user->zipcode}}</li>
+	<li>{{$user->profile_pic_path}}</li>
 </ul>
 
-{{-- @if($user->id != Auth::user()->id)
-<button onclick="like({{$user->id}})">Like {{$user->username}}</button>
-@endif --}}
-
-@if(Auth::id() == $user->id)
-<button class="btn btn-primary">Edit profile</button>
+@if(Auth::user()->id == $user->id)
+<a href="{{route('profile.edit', ['profile' => $user->id])}}">
+	<button class="btn btn-primary">Edit profile</button>
+</a>
 @else
 <div id="app">
-	<like-component profile-id="{{$user->id}}">
-
-	</like-component>
+	<like-component profile-id="{{$user->id}}"></like-component>
 </div>
 @endif
-
-{{--
-<script>
-	function like($id) {
-		console.log($id)
-	}
-</script> --}}
 @endsection
