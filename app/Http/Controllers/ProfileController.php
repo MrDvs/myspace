@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Image;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,11 +83,8 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        request()->validate([
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'picture' => ['required', 'image'],
+        $user = User::find($id);
+        $validateArray = [
             'firstname' => ['required', 'string'],
             'lastname' => ['required', 'string'],
             'streetname' => ['required', 'string'],
@@ -94,7 +92,53 @@ class ProfileController extends Controller
             'housenumbersuffix' => ['nullable', 'string'],
             'city' => ['required', 'string'],
             'zipcode' => ['required', 'string'],
-        ]);
+        ];
+        $updateArray = [
+            'first_name' => $request->firstname,
+            'last_name' => $request->lastname,
+            'street' => $request->streetname,
+            'house_number' => $request->housenumber,
+            'house_number_suffix' => $request->housenumbersuffix,
+            'city' => $request->city,
+            'zipcode' => $request->zipcode,
+        ];
+
+        if ($request->password != null)
+        {
+            $validateArray += ['password' => ['required', 'string', 'min:8', 'confirmed']];
+            $updateArray += ['password' => Hash::make($request->password)];
+        }
+
+        if ($request->username != $user->username)
+        {
+            $validateArray += ['username' => ['required', 'string', 'max:255', 'unique:users']];
+            $updateArray += ['username' => $request->username];
+        }
+
+        if ($request->email != $user->email)
+        {
+            $validateArray += ['email' => ['required', 'string', 'email', 'max:255', 'unique:users']];
+            $updateArray += ['email' => $request->email];
+        }
+
+        if ($request->picture != null) {
+            $validateArray += ['picture' => ['required', 'image']];
+        }
+
+        request()->validate($validateArray);
+
+        if ($request->picture != null) {
+            $originalImage = $request->file('picture');
+            $cropped = Image::make($originalImage)
+                ->fit(200, 200)
+                ->encode('jpg', 80);
+            $img_id = uniqid().'.jpg';
+            $cropped->save('../storage/app/public/'.$img_id);
+            $updateArray += ['profile_pic_path' => $img_id];
+        }
+
+        $user->update($updateArray);
+        dd($user);
     }
 
     /**
