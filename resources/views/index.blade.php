@@ -8,7 +8,7 @@
 	  <img src="{{asset('storage/'.$user->profile_pic_path)}}" class="card-img-top" alt="...">
 	  <div class="card-body">
 	    <h5 class="card-title">{{$user->username}}</h5>
-	    <a href="{{route('profile.show', ['id' => $user->id])}}" class="btn btn-primary">View profile</a>
+	    <a href="{{route('profile.show', ['profile' => $user->id])}}" class="btn btn-primary">View profile</a>
 	  </div>
 	</div>
 	@endforeach
