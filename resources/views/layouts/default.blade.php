@@ -12,6 +12,7 @@
 	<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 	<script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://kit.fontawesome.com/455bbfd2fc.js"></script>
 
 	<script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
