@@ -1890,6 +1890,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     likeState: function likeState() {
       return this.info == 0 ? 'Like' : 'Unlike';
+    },
+    thumb: function thumb() {
+      return this.info == 0 ? 'far' : 'fas';
     }
   },
   data: function data() {
@@ -37258,9 +37261,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
-    _c("button", { on: { click: _vm.likeUser } }, [
-      _vm._v("\n\t\t" + _vm._s(_vm.likeState) + "\n\t")
-    ])
+    _c(
+      "button",
+      { staticClass: "btn btn-primary", on: { click: _vm.likeUser } },
+      [
+        _c("i", { staticClass: "fa-thumbs-up", class: _vm.thumb }),
+        _vm._v(" " + _vm._s(_vm.likeState) + "\n\t")
+      ]
+    )
   ])
 }
 var staticRenderFns = []

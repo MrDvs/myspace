@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
-		<button @click="likeUser">
-			{{ likeState }}
+		<button @click="likeUser" class="btn btn-primary">
+			<i v-bind:class="thumb" class="fa-thumbs-up"></i> {{ likeState }}
 		</button>
 	</div>
 </template>
@@ -20,6 +20,9 @@
 		computed: {
 			likeState: function () {
 				return this.info == 0 ? 'Like' : 'Unlike'
+			},
+			thumb: function () {
+				return this.info == 0 ? 'far' : 'fas'
 			}
 		},
 
