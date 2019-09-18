@@ -1,27 +1,31 @@
 @extends('layouts.default')
 
 @section('content')
-<img src="{{asset('storage/'.$user->profile_pic_path)}}" alt="">
-<ul>
-	<li>{{$user->username}}</li>
-	<li>{{$user->email}}</li>
-	<li>{{$user->first_name}}</li>
-	<li>{{$user->last_name}}</li>
-	<li>{{$user->street}}</li>
-	<li>{{$user->house_number}}</li>
-	<li>{{$user->house_number_suffix}}</li>
-	<li>{{$user->city}}</li>
-	<li>{{$user->zipcode}}</li>
-	<li>{{$user->profile_pic_path}}</li>
-</ul>
+<h3>{{$user->username}}</h3>
 
-@if(Auth::user()->id == $user->id)
-<a href="{{route('profile.edit', ['profile' => $user->id])}}">
-	<button class="btn btn-primary">Edit profile</button>
-</a>
+@guest
+	<img src="{{asset('storage/'.$user->profile_pic_path)}}">
+	<h5 class="text-center">To view more of {{$user->username}}'s profile, you have to <a href="{{route('login')}}">Login</a> or <a href="{{route('register')}}">Register</a>.</h5>
 @else
-<div id="app">
-	<like-component profile-id="{{$user->id}}"></like-component>
-</div>
+	<div>
+		<img src="{{asset('storage/'.$user->profile_pic_path)}}" style="display: inline-block;">
+		<h4 style="display: inline-block;">{{$user->street}} {{$user->house_number}}{{$user->house_number_suffix}},<br>
+		{{$user->zipcode}},<br> 
+		{{$user->city}}</h4>
+	</div>
+	<div style="margin-top: 2vh">
+		<h5><i class="far fa-id-badge"></i> {{$user->first_name}} {{$user->last_name}}</h5>
+		<h5><i class="far fa-envelope"></i> {{$user->email}}</h5>
+
+	@if(Auth::user()->id == $user->id)
+		<a href="{{route('profile.edit', ['profile' => $user->id])}}">
+			<button class="btn btn-primary">Edit profile</button>
+		</a>
+	@else
+		<div id="app">
+			<like-component profile-id="{{$user->id}}"></like-component>
+		</div>
+	@endif
+	</div>
 @endif
 @endsection
