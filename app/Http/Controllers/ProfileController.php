@@ -85,6 +85,7 @@ class ProfileController extends Controller
         $validateArray = [
             'firstname' => ['required', 'string'],
             'lastname' => ['required', 'string'],
+            'relationshipstatus' => ['required'],
             'streetname' => ['required', 'string'],
             'housenumber' => ['required', 'numeric'],
             'housenumbersuffix' => ['nullable', 'string'],
@@ -123,6 +124,10 @@ class ProfileController extends Controller
             $validateArray += ['picture' => ['required', 'image']];
         }
 
+        if ($request->relationshipstatus != $user->relationship_status) {
+            $updateArray += ['relationship_status' => $request->relationshipstatus];
+        }
+
         request()->validate($validateArray);
 
         if ($request->picture != null) {
@@ -136,7 +141,8 @@ class ProfileController extends Controller
         }
 
         $user->update($updateArray);
-        dd($user);
+        
+        return redirect()->route('profile.show', ['profile' => $id]);
     }
 
     /**
@@ -148,5 +154,32 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $query = request('query');
+        $results = User::where('username', 'like', '%'.$query.'%')->get();
+        
+        if (count($results)) {
+            return view('profile.search', [
+                'results' => $results,
+                'query' => $query
+            ]);
+        } else {
+            // echo $query."<br>";
+            // $users = User::all();
+            // $resultz = [];
+            // $resultz += [1];
+            // $resultz += [2];
+            // foreach ($users as $key => $user) {
+            //     $levenshtein = levenshtein($user->username, $query)."<br>";
+            //     echo $levenshtein;
+            //     if ($levenshtein <= 3) {
+            //         $resultz += [$key];
+            //     }
+            // }
+            dd('no results found');
+        }
     }
 }

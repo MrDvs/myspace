@@ -58,6 +58,16 @@
 				<label for="lastnameInput">Last Name</label>
 				<input type="text" class="form-control @error('lastname') is-invalid @enderror" id="lastnameInput" name="lastname" value="{{$user->last_name}}">
 			</div>
+			<div class="form-group">
+				<label for="relationshipInput">Relationship status</label>
+				<select name="relationshipstatus" id="relationshipInput" class="form-control">
+					<option value="Single">Single</option>
+					<option value="Divorced">Divorced</option>
+					<option value="Married">Married</option>
+					<option value="Taken">Taken</option>
+					<option value="It's complicated">It's complicated</option>
+				</select>
+			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="streetInput">Street name</label>

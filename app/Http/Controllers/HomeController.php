@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('id', 'desc')->limit(4)->get();
         return view('index', ['users' => $users]);
     }
 }

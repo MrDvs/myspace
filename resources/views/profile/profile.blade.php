@@ -15,6 +15,7 @@
 	</div>
 	<div style="margin-top: 2vh">
 		<h5><i class="far fa-id-badge"></i> {{$user->first_name}} {{$user->last_name}}</h5>
+		<h5><i class="far fa-heart"></i> {{$user->relationship_status}}</h5>
 		<h5><i class="far fa-envelope"></i> {{$user->email}}</h5>
 
 	@if(Auth::user()->id == $user->id)

@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'picture' => ['required', 'image'],
             'firstname' => ['required', 'string'],
             'lastname' => ['required', 'string'],
+            'relationshipstatus' => ['required'],
             'streetname' => ['required', 'string'],
             'housenumber' => ['required', 'numeric'],
             'housenumbersuffix' => ['nullable', 'string'],
@@ -93,6 +94,7 @@ class RegisterController extends Controller
             'house_number_suffix' => $data['housenumbersuffix'],
             'city' => $data['city'],
             'zipcode' => $data['zipcode'],
+            'relationship_status' => $data['relationshipstatus'],
             'profile_pic_path' => $img_id,
         ]);
     }
