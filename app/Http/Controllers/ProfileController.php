@@ -19,35 +19,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        // check if the user is logged in
-        if (Auth::user()) {
-            $user = Auth::user();
-            return view('profile.profile', ['user' => $user]);
-        } else {
-            // If the user isn't logged in, he will be returned to the index page
-            return view('index');
-        }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $users = User::SimplePaginate(8);
+        return view('profile.index', ['users' => $users]);
     }
 
     /**
@@ -154,17 +127,6 @@ class ProfileController extends Controller
         $user->update($updateArray);
 
         return redirect()->route('profile.show', ['profile' => $id]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function search(Request $request)

@@ -24,7 +24,9 @@
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container">
-			  <a class="navbar-brand" href="{{route('home')}}">MySpace</a>
+			  <a class="navbar-brand" href="{{route('home')}}">
+                  <img src="{{asset('img/myspace.png')}}" alt="" style="width: 10vw;">
+              </a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			  </button>
@@ -33,6 +35,9 @@
 				  <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
 					<a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
 				  </li>
+                  <li class="nav-item {{ request()->is('profile') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('profile.index')}}">Users <span class="sr-only">(current)</span></a>
+                  </li>
 				</ul>
 			  </div>
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -45,11 +50,11 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->is('login') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <li class="nav-item {{ request()->is('register') ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
@@ -60,7 +65,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="{{ route('profile.index') }}">
+									<a class="dropdown-item" href="{{ route('profile.show', ['profile' => Auth::user()->id]) }}">
 	                                    Profile
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

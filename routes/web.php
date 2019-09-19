@@ -14,13 +14,7 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-
-// Route::get('/profile', 'ProfileController@index')->name('profile');
-// Route::get('/profile/{id}', 'ProfileController@show')->name('show.profile');
-// Route::get('/profile/{id}/edit', 'ProfileController@edit')->name('edit.profile');
-// Route::patch('/profile/update', 'ProfileController@update')->name('update.profile');
 Route::post('/search', 'ProfileController@search')->name('search');
-
 Route::resource('profile', 'ProfileController');
 
 // Axios routes
