@@ -19,10 +19,12 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        // check if the user is logged in
         if (Auth::user()) {
             $user = Auth::user();
             return view('profile.profile', ['user' => $user]);
         } else {
+            // If the user isn't logged in, he will be returned to the index page
             return view('index');
         }
     }
@@ -56,6 +58,7 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
+        // Get the user with the requested id
         $user = User::find($id);
         return view('profile.profile', ['user' => $user]);
     }
@@ -68,6 +71,7 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
+        // Get all the user info with the requested id
         $user = User::find($id);
         return view('profile.edit', ['user' => $user]);
     }
@@ -81,7 +85,9 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Find the requested user by id
         $user = User::find($id);
+        // Create an array with things to validate if the form gets submitted
         $validateArray = [
             'firstname' => ['required', 'string'],
             'lastname' => ['required', 'string'],
@@ -92,6 +98,7 @@ class ProfileController extends Controller
             'city' => ['required', 'string'],
             'zipcode' => ['required', 'string'],
         ];
+        // Create an array with things to update in the database
         $updateArray = [
             'first_name' => $request->firstname,
             'last_name' => $request->lastname,
@@ -102,6 +109,7 @@ class ProfileController extends Controller
             'zipcode' => $request->zipcode,
         ];
 
+        // If the password is not null, add it to the validation- and updatearray
         if ($request->password != null)
         {
             $validateArray += ['password' => ['required', 'string', 'min:8', 'confirmed']];
@@ -128,8 +136,10 @@ class ProfileController extends Controller
             $updateArray += ['relationship_status' => $request->relationshipstatus];
         }
 
+        // Validate everything is the validate array
         request()->validate($validateArray);
 
+        // If a new picture has been uploaded, crop it, store it in the storage and add it to the update array
         if ($request->picture != null) {
             $originalImage = $request->file('picture');
             $cropped = Image::make($originalImage)
@@ -140,8 +150,9 @@ class ProfileController extends Controller
             $updateArray += ['profile_pic_path' => $img_id];
         }
 
+        // Update everything that is present in the update array
         $user->update($updateArray);
-        
+
         return redirect()->route('profile.show', ['profile' => $id]);
     }
 
@@ -158,9 +169,10 @@ class ProfileController extends Controller
 
     public function search(Request $request)
     {
+        // Search all the usernames
         $query = request('query');
         $results = User::where('username', 'like', '%'.$query.'%')->get();
-        
+
         if (count($results)) {
             return view('profile.search', [
                 'results' => $results,

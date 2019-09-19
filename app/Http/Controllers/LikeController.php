@@ -10,6 +10,7 @@ class LikeController extends Controller
 {
 	public function isLiked($id)
 	{
+		// Check if the logged in user allready likes the visited user
 		$check = Like::where([
     		['liker_id', Auth::user()->id],
     		['liked_user_id', $id]
@@ -24,6 +25,7 @@ class LikeController extends Controller
 
     public function like($id)
     {
+    	// Like the visited user
     	$likerId = Auth::user()->id;
 
 		$like = new Like();
@@ -34,6 +36,7 @@ class LikeController extends Controller
 
     public function unlike($id)
     {
+    	// unlike the visited user
         $likerId = Auth::user()->id;
 
         $like = Like::where([

@@ -12,10 +12,11 @@
 				<div class="input-group-append">
 					<button type="submit" id="button-addon5" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 				</div>
-			</div>        
+			</div>
       	</form>
 	</div>
 
+	{{-- Show the last 4 registered users --}}
 	<div id="new-people" class="clearfix">
 		<h4 style="font-weight: bold;">Cool new people</h4>
 		<div class="people-container" style="display: flex; justify-content: center; width: 100%">

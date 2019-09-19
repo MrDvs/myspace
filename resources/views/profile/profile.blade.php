@@ -10,14 +10,14 @@
 	<div>
 		<img src="{{asset('storage/'.$user->profile_pic_path)}}" style="display: inline-block;">
 		<h4 style="display: inline-block;">{{$user->street}} {{$user->house_number}}{{$user->house_number_suffix}},<br>
-		{{$user->zipcode}},<br> 
+		{{$user->zipcode}},<br>
 		{{$user->city}}</h4>
 	</div>
 	<div style="margin-top: 2vh">
 		<h5><i class="far fa-id-badge"></i> {{$user->first_name}} {{$user->last_name}}</h5>
 		<h5><i class="far fa-heart"></i> {{$user->relationship_status}}</h5>
 		<h5><i class="far fa-envelope"></i> {{$user->email}}</h5>
-
+	{{-- If the user is on his own profile page, the edit button will be shown instead of the like button --}}
 	@if(Auth::user()->id == $user->id)
 		<a href="{{route('profile.edit', ['profile' => $user->id])}}">
 			<button class="btn btn-primary">Edit profile</button>

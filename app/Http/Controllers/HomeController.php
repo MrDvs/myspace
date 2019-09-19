@@ -25,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Get the last 4 registered users
         $users = User::orderBy('id', 'desc')->limit(4)->get();
         return view('index', ['users' => $users]);
     }
