@@ -61,11 +61,11 @@
 			<div class="form-group">
 				<label for="relationshipInput">Relationship status</label>
 				<select name="relationshipstatus" id="relationshipInput" class="form-control">
-					<option value="Single">Single</option>
-					<option value="Divorced">Divorced</option>
-					<option value="Married">Married</option>
-					<option value="Taken">Taken</option>
-					<option value="It's complicated">It's complicated</option>
+					<option value="Single" {{$user->relationship_status == 'Single' ? 'selected' : ''}}>Single</option>
+					<option value="Divorced" {{$user->relationship_status == 'Divorced' ? 'selected' : ''}}>Divorced</option>
+					<option value="Married" {{$user->relationship_status == 'Married' ? 'selected' : ''}}>Married</option>
+					<option value="Taken" {{$user->relationship_status == 'Taken' ? 'selected' : ''}}>Taken</option>
+					<option value="It's complicated" {{$user->relationship_status == "It's complicated" ? 'selected' : ''}}>It's complicated</option>
 				</select>
 			</div>
 			<div class="form-row">

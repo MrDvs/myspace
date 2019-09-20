@@ -26,8 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('house_number');
             $table->string('house_number_suffix')->nullable();
 
-            $table->string('relationship_status')->nullable();
-            $table->string('profile_pic_path')->nullable();
+            $table->string('relationship_status');
+            $table->string('profile_pic_path');
             $table->string('password');
             $table->timestamps();
         });
